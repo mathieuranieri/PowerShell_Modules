@@ -1,10 +1,31 @@
 Function Use-AtThePowerOf {
+    [Alias('atp')]
+    <#
+        .SYNOPSIS
+        Returns the computing of a number at the power of provided indice
+
+        .DESCRIPTION
+        Returns the computing of a number at the power of provided indice
+        take number and indice as parameter
+        
+        .EXAMPLE
+        PS C:\> 10 | atp 2
+        
+        .EXAMPLE
+        PS C:\> atp 10 2
+
+        .EXAMPLE
+        PS C:\> atp -EntryNumber 10 -PowerIndice 2
+        #>
+
     Param(
-        [Parameter(Mandatory,Position=0)]
+        [Parameter(Mandatory,Position=0,ValueFromPipeline)]
+        #Specify the number to process
         [Int32]
         $EntryNumber,
 
         [Parameter(Mandatory,Position=1)]
+        #Specify the indice to process with
         [Int32]
         $PowerIndice
     )
@@ -27,55 +48,67 @@ Function Use-AtThePowerOf {
 }
 
 Function Get-ServiceByFilter {
+    [Alias('gsbf')]
     <#
-    .SYNOPSIS
-    Returns services list
+        .SYNOPSIS
+        Returns services list
 
-    .DESCRIPTION
-    Returns services list 
-    take some service properties as parameter
-    
-    .EXAMPLE
-    PS C:\> <Int> | fsvc <String> <String> <String> <String> -SortBy <String>
-    
-    .EXAMPLE
-    PS C:\> fsvc * * * * <Int> -SortBy <String>
+        .DESCRIPTION
+        Returns services list 
+        take some service properties as parameter
+        
+        .EXAMPLE
+        PS C:\> gsbf
 
-    .EXAMPLE
-    PS C:\> fsvc * * * *
-
-    .EXAMPLE
-    PS C:\> fsvc
+        .OUTPUTS
+        System.Object. Get-ServiceByFilter return an object 
+        containing service data
     #>
+
     Param(
         [Parameter(Position=0)]
+        #Specify character to filter on
         [String]
         $NameLike = "*",
 
         [Parameter(Position=1)]
+        #Specify service start mode to filter on
         [ValidateSet('Manual','Auto','Disabled', '*')]
         [String]
         $StartModeLike = "*",
 
         [Parameter(Position=2)]
+        #Specify service state to filter on
         [ValidateSet('Stopped','Running', '*')]
         [String]
         $StateLike = "*",
 
         [Parameter(Position=3)]
+        #Specify service status to filter on
         [ValidateSet('OK','KO','UNKNOWN', '*')]
         [String]
         $StatusLike = "*",
 
         [Parameter(Position=4,ValueFromPipeline)]
-        [ValidateRange(1,100)]
+        #Specify the number of output row to display
         [Int32]
-        $LimitAs = 100,
+        $LimitAs = 20,
 
         [Parameter()]
+        #Specify the column on which the output will be sorted
         [ValidateSet('ProcessId','Name','StartMode','State')]
         [String]
-        $SortBy = "ProcessId"
+        $SortBy = "ProcessId",
+
+        [Parameter()]
+        #Specify folder path where output will be send
+        [String]
+        $OutFolder,
+
+        [Parameter()]
+        #Specify which columns will be selected in output file
+        [System.Collections.ArrayList]
+        $ColumnsToOutput = @('*')
     )
 
     Process {
@@ -86,10 +119,12 @@ Function Get-ServiceByFilter {
             $_.Status -like "$StatusLike"
         } | Sort-Object -Property $SortBy
 
+        If($Null -ne $OutFolder) {
+            $OutFolder = "$OutFolder\ServiceData.csv"
+            New-Item -Path $OutFolder -Force
+            $ServicesObject | Select-Object $ColumnsToOutput -First $LimitAs | Export-Csv -Delimiter ';' -Path $OutFolder -Force | Out-Null
+        }
+
         Return $ServicesObject | Select-Object -First $LimitAs
     }
 }
-
-New-Alias -Name "**" -Value Use-AtThePowerOf -Force
-New-Alias -Name "fsvc" -Value Get-ServiceByFilter -Force
-
