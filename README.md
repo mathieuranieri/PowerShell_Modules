@@ -1,2 +1,3 @@
-# PowerShell_Modules
-PowerShell modules added on PSGallery
+# PowerShell Utilities
+
+> Module used to provide some usefull functions to simplify your code
