@@ -85,9 +85,9 @@ If($A -eq $B) {
 A is equal B
 ```
 The condition operator in PowerShell are specifc :
-- ne : not equel
+- ne : not equal
 - eq : equal
-- gt : greate than
+- gt : greater than
 - lt : lesser than
 - ...
 
@@ -98,7 +98,7 @@ The condition operator in PowerShell are specifc :
 Get-Service | Out-File -Path "C:\Service.txt"
 ```
 Add the ```Get-Service``` result into the filename ```C:\Service.txt```. 
-The pipeline allows to send the previous command result to the next one.
+The pipeline allows to send the previous command result to the next one. In this case the value is send as the ```-InputObject``` parameter to ```Out-File``` command.
 
 
 ### Functions
