@@ -570,7 +570,7 @@ C:\program files\powershell\7\Modules
 C:\Program Files\WindowsPowerShell\Modules
 C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 ```
-To create of PowerShell module you have to create a folder and a powershell module file (.psm1) with the same name : ```C:\Program Files\PowerShell\Modules\MyModule\MyModule.psm1```.
+To create of PowerShell module you have to create a folder and a powershell module file (.psm1) with the same name: ```C:\Program Files\PowerShell\Modules\MyModule\MyModule.psm1```.
 
 There is a different type module which is a dynamic module that will exist only in memory with the command :
 ```ps1
