@@ -2,7 +2,7 @@
 
 ## Summary
 ---
-- [What is PowerShell](#What-is-PowerShell)
+- [What is PowerShell](#what-is-powershell)
     - [Introduction](#Introduction)
     - [Running PowerShell](#Running-PowerShell)
 - [PowerShell language](#PowerShell-language)
@@ -27,7 +27,7 @@
         - [Modules Manifest](#Modules-manifest)
     - [Configuration Files](#Configuration-Files)
 
-## What is PowerShell ?
+## What is PowerShell
 ---
 ### Introduction
 
