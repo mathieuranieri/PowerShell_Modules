@@ -399,9 +399,9 @@ REMARKS
 ```
 We will take the previous function to show an exemple. To personalize the help message we are using multi-line comment ```<# #>``` with specific keywords. 
 
-To complete the comment for parameters there is two way of doing it, the first one is to add in the multi line comment ```.PARAMETER ParamName``` for each parameter or the second way directly to add a one line comment in the parameter intruction block. 
+To complete the comment for parameters there is two way of doing it, the first one is to add the information in the multi line comment ```.PARAMETER ParamName``` for each parameter, and the second way is to directly add a one line comment in the parameter intruction block of the function, the two way are shown below. 
 
-The two way are shown below. The comment block have to be write above the function without space between function name and comment block else it won't work properly :
+The comment block have to be write above the function without space between function name and comment block else it won't work properly :
 ```ps1
 <#
     .SYNOPSIS
