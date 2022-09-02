@@ -462,7 +462,7 @@ Function Edit-Parameters {
 ```ps1
 Get-Help Edit-Parameters -Full
 ```
-Here is the result when calling ```Get-Help``` with argument ````-Full``` we can see all the comment help block that we provided that are now listed :
+Here is the result when calling ```Get-Help``` with argument ```-Full``` we can see all the comment help block that we provided that are now listed :
 ```
 NAME
     Edit-Parameters
