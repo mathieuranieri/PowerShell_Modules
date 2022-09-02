@@ -1,7 +1,35 @@
 # PowerShell
 
-## What is PowerShell ?
+## Summary
+---
+- [Summary](#summary)
+    - [What is PowerShell](##What%20is%20PowerShell)
+        - [Introduction](###Introduction)
+        - [Running PowerShell](###Running%20PowerShell)
+    - [PowerShell language](##PowerShell%20language)
+        - [Variable Scope](#Variable%20Scope)
+        - [Automatic Variables](###Automatic%20Variables)
+        - [Basic notions](###Basic%20notions)
+            - [Printing Values](####Printing%20Values)
+            - [Conditions](####Condtions)
+            - [Loops](####Loops)
+            - [Pipeline](####Pipeline)
+            - [Array](####Array)
+            - [Object](####Objects)
+        - [Functions](###Functions)
+            - [Good Practises](####Good%20practises)
+            - [Basic Functions](####Basic%20functions)
+            - [Advanced Functions](####Advanced%20Functions)
+            - [Advanced Parameters](####Advanced%20Parameters)
+            - [ParameterSet](####ParameterSet)
+            - [Comment based help](####Comment%20based%20help)
+        - [Modules](###Modules)
+            - [Modules in PowerShell](####Modules%20in%20PowerShell)
+            - [Modules Manifest](####Modules%20manifest)
+        - [Configuration Files](###Configuration%20Files)
 
+## What is PowerShell ?
+---
 ### Introduction
 
 PowerShell is an object **oriented programmation language** and a shell interpreter developped in C#.
@@ -30,7 +58,7 @@ Extension   | Name                           | Rôle                            
 ## PowerShell language
 
 ### Variable scope
-
+---
 In PowerShell variable are defining with the dollar character: `$VariableName`. As a programmation language there is variable scope in PowerShell, here is a list of variables scopes:
 
 Pattern        | PowerShell Scope      | Scope Detail           | Utilities              |
@@ -41,7 +69,7 @@ Pattern        | PowerShell Scope      | Scope Detail           | Utilities     
 ```$using:MyVar```   | Script Block          | Callable inside a Script Block  | Calling variable inside specific scope (Parallel foreach, Invoke-Command, Start-Job)
 
 ### Automatic Variables
-
+---
 PowerShell provide some automatic variables that can be really useful in many cases. Here is a list of some of them:
 
 Variable       | Output                 | Type            |
@@ -61,9 +89,9 @@ Variable       | Output                 | Type            |
 ```$_``` | Return active object from pipeline value | All |
 ```$Profile``` | Return the user active PowerShell profile | String |
 
-### Basic commands
-
-**Printing value**
+### Basic notions
+---
+#### **Printing values**
 ```ps1
 Write-Host $Home
 ```
@@ -72,7 +100,7 @@ Write-Host $Home
 C:\Users\Username
 ```
 
-**Conditions**
+#### **Conditions**
 ```ps1
 $A = 2
 $B = 2
@@ -109,14 +137,14 @@ $Array | Foreach-Object {
 }
 ```
 
-#### **Command combination with pipeline**
+#### **Pipeline**
 ```ps1
 Get-Service | Out-File -Path "C:\Service.txt"
 ```
 Add the ```Get-Service``` result into the filename ```C:\Service.txt```. 
 The pipeline allows to send the previous command result to the next one. In this case the value is send as the ```-InputObject``` parameter to ```Out-File``` command.
 
-#### **Array & ArrayList**
+#### **Array**
 
 An array in PowerShell can be declared as two different way, the first one is an object of type array that have a fixed size, element cannot be removed or added. The second one is an ArrayList where you can add or remove element :
 ```ps1
@@ -148,7 +176,7 @@ $CustomObject.PSObject.Properties.Remove("Name2") #Remove
 ```
 
 ### Functions
-
+---
 #### **Good practises**
 
 To declare a function in PowerShell you have to name your function will the following syntax : ```Verb-Noun```. You can check the different authorized verb with the command :
@@ -242,7 +270,7 @@ The parameters in functions can be configured. Here is a list of some of possibl
 | Position                | Int | Define the positionning of the argument passed while calling the function |
 | ParameterSetName | String | Define a parameter set name for a parameter |
 
-#### **ParameterSet and Parameters**
+#### **ParameterSet**
 ```ps1
 Function Edit-Parameters {
     [CmdletBinding(DefaultParameterSetName="Test")]
@@ -544,9 +572,9 @@ RELATED LINKS
 
 ```
 
-### Modules & Configuration files
-
-#### **Modules**
+### Modules
+---
+#### **Modules in PowerShell**
 
 In PowerShell we can create our own modules. A module is a little library that provides some cmdlet or functions.
 
@@ -819,7 +847,7 @@ To publish our module on the PowerShell Gallery we can use the following command
 Publish-Module -Name "MyModule" -NuGetApiKey "YourApiKey"
 ```
 
-#### **Configuration files** ####
+### Configuration files
 
 Configuration file in PowerShell (.psd1) are really useful in somes case to store some data that will be used many times. 
 
