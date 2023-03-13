@@ -846,7 +846,7 @@ To publish our module on the PowerShell Gallery we can use the following command
 Publish-Module -Name "MyModule" -NuGetApiKey "YourApiKey"
 ```
 
-### Configuration files
+#### Configuration files
 
 Configuration file in PowerShell (.psd1) are really useful in somes case to store some data that will be used many times. 
 
@@ -901,4 +901,61 @@ Test
 
 $Configuration.Id #Int
 10
+```
+
+### Classes
+
+Powershell classes are loaded **one time by session**. You can define a class like this
+```ps1
+#Car.psm1
+
+Class Car {
+    #Class attributes
+    [String]$Model,
+    [Int32]$Year
+
+    #Intialize a constructor
+    Car([String]ModelValue, [Int32]ReleaseDate) {
+        $this.Model = $ModelValue
+        $this.Year = $ReleaseDate
+    }
+
+    #Define a method with the output type
+    [String]GetCarInfo() {
+        Return $this.Model + " " $this.Year
+    }
+}
+```
+Powershell classes can be created in **ps1** script file or **psm1** module file. The way of calling is different for both.
+| Script | Module |
+| ------ | ------ |
+| ps1    | psd1   |
+| . ./scriptName | using module moduleName |
+
+For inheritance using moduleName is quite better.
+
+```ps1
+#Bus.ps1
+using module Car.psm1
+
+Class Bus : Car {
+    [String]$Size
+
+    Bus ([Int32]$BusSize, [String]$BusName, [Int32]$BusYear) : Base($BusName, $BusYear) {
+        this.Size = $BusSize
+    }
+}
+```
+
+Then you call a class by the following way :
+```ps1
+. .\Car.ps1
+
+# 1st way of calling our class
+$CarObject = [Car]::New(100, 'Renault', 2002)
+
+# 2nd way of calling our class
+$CarObject = New-Object -TypeName Car -ArgumentList 100, 'Renault', 2002
+
+$CarObject.Model
 ```
